@@ -11,10 +11,12 @@
   </head>
 
   <body>
-  <header>
-  <h1>Movie Reviews</h1>
-  </header>
-    <%= yield %>
+    <header>
+      <%= image_tag('logo.png') %>
+    </header>
+    <section class="content">
+      <%= yield %>
+    </section>
     <footer><a href="https://github.com/urilixo">Urilixo</a> <%= Time.now.year %> </footer>
   </body>
 </html>
