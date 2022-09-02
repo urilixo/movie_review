@@ -1,0 +1,15 @@
+<section class="movie-details">
+    <div class="details">
+        <h1><%= @movie.title %></h1>
+        <h2> <%= release_date(@movie) %> &bull; <%= @movie.rating %> </h2>
+        <p><%= @movie.description %></p>
+
+        <table>
+            <tr>
+                <th>Total Gross:</th>
+                <td><%= total_gross(@movie)%></td>
+            </tr>
+        </table>
+    </div>
+    <%= link_to "Back", :back %>
+</section>
