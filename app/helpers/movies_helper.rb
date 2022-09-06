@@ -6,4 +6,12 @@ module MoviesHelper
     def release_date(movie)
         movie.released_on.strftime("%B %d, %Y")
     end
+
+    def review_score(movie)
+        movie.average_stars_as_percent.zero? ? content_tag(:strong, "No reviews") : movie.average_stars_as_percent
+    end
+
+    def review_count(movie)
+        movie.reviews_amount.zero? ? "No " : movie.reviews_amount
+    end
 end

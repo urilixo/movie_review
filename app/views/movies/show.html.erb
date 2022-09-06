@@ -2,6 +2,8 @@
     <div class="image"> <%= image_tag @movie.image_file_name %></div>
     <div class="details">
         <h1><%= @movie.title %></h1>
+        <h2><%= render "shared/stars", percent: review_score(@movie)%></h2>
+        <h2><%= link_to pluralize(review_count(@movie), "reviews"), movie_reviews_path(@movie) %></h2>
         <h2> <%= release_date(@movie) %> &bull; <%= @movie.rating %> </h2>
         <p><%= @movie.description %></p>
 
