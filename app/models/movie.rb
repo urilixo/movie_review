@@ -27,6 +27,14 @@ class Movie < ApplicationRecord
         order("created_at desc").limit(3)
     end
 
+    def self.minimum_total_gross
+        order("total_gross asc").limit(1)
+    end
+
+    def self.maximum_total_gross
+        order("total_gross desc").limit(1)
+    end
+
     def flop?
         total_gross.blank? || total_gross < 250_000_000
     end
