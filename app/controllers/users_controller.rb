@@ -36,13 +36,13 @@ class UsersController < ApplicationController
     def destroy
         @user = User.find(params[:id])
         @user.destroy
-        redirect_to user_path_url, alert: "Profile deleted."
+        redirect_to users_url, status: :see_other, alert: "Profile deleted."
     end
 
     private
 
     def user_params
         params.require(:user).
-            permit(:name, :email, :password, :password_confirmation)
+            permit(:username, :name, :email, :password, :password_confirmation)
     end
 end
