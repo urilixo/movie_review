@@ -15,5 +15,5 @@
     <%= f.label :password_confirmation, "Retype your password" %>
     <%= f.password_field :password_confirmation %>
 
-    <%= f.submit %>
+    <%= user.new_record? ? f.submit("Create account") : f.submit("Update account") %>
 <% end %>
