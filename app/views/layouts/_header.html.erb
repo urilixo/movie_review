@@ -7,7 +7,13 @@
     </ul>
     <ul class="right">
         <li>
-            <%= link_to "Sign up", signup_path, class:"button" %>
+            <% if current_user %>
+                <%= link_to @current_user.name, @current_user, class:"btn btn-info" %>
+                <%= link_to "Sign out", session_path, data:{turbo_method: :delete}, class:"btn btn-danger" %>
+            <% else %>
+                <%= link_to "Sign up", signup_path, class:"button" %>
+                <%= link_to "Sign in", signin_path, class:"button" %>
+            <% end %>
         </li>
     </ul>
 </nav>
