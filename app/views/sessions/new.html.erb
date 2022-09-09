@@ -1,0 +1,10 @@
+<%= form_with(url: session_path) do |f| %>
+
+
+<%= f.label :username_or_email %>
+<%= f.text_field :username_or_email, required: true %>
+
+<%= f.label :password %>
+<%= f.password_field :password, required: true %>
+<%= f.submit "Login" %>
+<% end %>
