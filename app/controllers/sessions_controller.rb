@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
     end
 
     def destroy
-        session.clear if session[:user_id]
+        session[:user_id] = nil
         redirect_to :root, status: :see_other, alert: "Signed off"
     end
 end

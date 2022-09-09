@@ -8,7 +8,7 @@
     <ul class="right">
         <li>
             <% if current_user %>
-                <%= link_to @current_user.name, @current_user, class:"btn btn-info" %>
+                <%= link_to current_user.name, current_user, class:"btn btn-info" %>
                 <%= link_to "Sign out", session_path, data:{turbo_method: :delete}, class:"btn btn-danger" %>
             <% else %>
                 <%= link_to "Sign up", signup_path, class:"button" %>
