@@ -4,7 +4,7 @@
     <li>
         <%= render "shared/stars", percent: r.stars_as_percent %>
         <p>
-            <%= link_to r.name, [r.movie, r] %>
+            <%= profile_pic(r.user, 35) %><%= link_to r.user.name, [r.movie, r] %>
             <span class="date">
                 <%= time_ago_in_words(r.created_at)%> ago
             </span>
