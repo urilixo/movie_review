@@ -37,7 +37,7 @@ class UsersController < ApplicationController
 
     def destroy
         @user.destroy
-        session[:user_id] = nil
+        session[:user_id] = nil unless current_user_admin? && @user.admin? == false
         redirect_to users_url, status: :see_other, alert: "Profile deleted."
     end
 
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
 
     def require_correct_user
         @user = User.find(params[:id])
-        redirect_to :root, alert: "Access Denied." unless current_user?(@user)
+        redirect_to :root, alert: "Access Denied." unless current_user?(@user) || current_user_admin?
     end
 
     def user_params

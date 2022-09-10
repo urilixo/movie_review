@@ -16,10 +16,11 @@
         </table>
     </div>
     <%= link_to "Review this movie!", new_movie_review_path(@movie) %>
-    
-    <section class="admin">
-        <%= link_to "Edit", edit_movie_path, class:"button" %>
-        <%= link_to "Delete", @movie, class:'button', data:{ turbo_method: :delete, turbo_confirm: "Are you sure you want to delete \"#{@movie.title}\"?"}%>
-        <%= link_to "Back", :back, class:'button' %>
-    </section>
+    <% if current_user_admin? %>
+        <section class="admin">
+            <%= link_to "Edit", edit_movie_path, class:"button" %>
+            <%= link_to "Delete", @movie, class:'button', data:{ turbo_method: :delete, turbo_confirm: "Are you sure you want to delete \"#{@movie.title}\"?"}%>
+            <%= link_to "Back", :back, class:'button' %>
+        </section>
+    <% end %>
 </section>
