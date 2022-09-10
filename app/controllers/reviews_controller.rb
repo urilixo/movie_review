@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
     before_action :set_movie
+    before_action :require_signin
 
     def index
         @reviews = @movie.reviews.all
@@ -37,11 +38,20 @@ class ReviewsController < ApplicationController
 
     def destroy
         @review = @movie.reviews.find(params[:id])
-        @review.destroy
-        redirect_to movie_reviews_url, status: :see_other, alert: "Review succesfully deleted."
+        if correct_user?
+            @review.destroy
+            redirect_to movie_reviews_url, status: :see_other, alert: "Review succesfully deleted."
+        else
+            redirect_to [@movie, @review], alert: "Unauthorized Access", status: :see_other
+        end
     end
 
     private
+
+    def correct_user?
+        @review = @movie.reviews.find(params[:id])
+        @review.user.id == current_user.id
+    end
 
     def set_movie
         @movie = Movie.find(params[:movie_id])
@@ -49,6 +59,6 @@ class ReviewsController < ApplicationController
 
     def review_params
         params.require(:review).
-            permit(:name, :stars, :comment)
+            permit(:stars, :comment)
     end
 end
