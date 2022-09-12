@@ -13,11 +13,11 @@
 ActiveRecord::Schema[7.0].define(version: 2022_09_10_205546) do
   create_table "favorites", force: :cascade do |t|
     t.integer "movie_id", null: false
-    t.integer "review_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["movie_id"], name: "index_favorites_on_movie_id"
-    t.index ["review_id"], name: "index_favorites_on_review_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "movies", force: :cascade do |t|
@@ -54,6 +54,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_10_205546) do
   end
 
   add_foreign_key "favorites", "movies"
-  add_foreign_key "favorites", "reviews"
+  add_foreign_key "favorites", "users"
   add_foreign_key "reviews", "movies"
 end
