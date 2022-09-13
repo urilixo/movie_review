@@ -3,6 +3,14 @@
     <h1><%= @user.name %></h1>
     <h2><%= link_to @user.email %> </h2>
 </section>
+<aside> 
+    <h4>Favorite movies</h4>
+    <ul>
+        <% @user.favorited.each do |f| %>
+            <li> <%= link_to f.title, f %></li>
+        <% end %>
+    </ul>
+</aside>
 <% if current_user?(@user) || current_user_admin? %>
     <section class="admin">
         <%= link_to "Edit Profile", edit_user_path, class:"button" %>
