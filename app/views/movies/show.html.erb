@@ -1,5 +1,15 @@
 <section class="movie-details">
     <div class="image"> <%= image_tag @movie.image_file_name %></div>
+    <div class="favorite">
+        <% if @favorite %>
+            <%= button_to "Remove favorite", movie_favorite_path(@movie, @favorite), method: :delete %>
+        <% else %>
+            <%= button_to "Add favorite", movie_favorites_path(@movie) %>
+        <% end %>
+        <div> 
+            <%= pluralize(@movie.favorites.size, "fan") %>
+        </div>
+    </div>
     <div class="details">
         <h1><%= @movie.title %></h1>
         <h2><%= render "shared/stars", percent: review_score(@movie)%></h2>
