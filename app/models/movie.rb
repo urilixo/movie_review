@@ -3,6 +3,8 @@ class Movie < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :fans, through: :favorites, source: :user
   has_many :reviewers, through: :reviews, source: :user
+  has_many :categorizations, dependent: :destroy
+  has_many :genres, through: :categorizations
 
   RATINGS = %w[G PG PG-13 R NC-17]
   validates :title, :released_on, :duration, presence: true
