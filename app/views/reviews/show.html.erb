@@ -1,6 +1,6 @@
 <h1>Review for <%= link_to @movie.title, @movie %></h1>
 <section class="review">
-    <p><%= @review.user.name %></p>
+    <p><%= link_to @review.user.name, @review.user %></p>
     <p><%= render "shared/stars", percent: @review.stars_as_percent %></p>
     <p><%= @review.comment %></p>
 
