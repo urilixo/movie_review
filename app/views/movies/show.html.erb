@@ -20,6 +20,14 @@
             </tr>
         </table>
     </div>
+    <aside>
+    <h4>Genre</h4>
+        <ul>
+            <% @genres.each do |genre| %>
+                <li> <%= link_to genre.name, genre %></li>
+            <% end %>
+        </ul>
+    </aside>
     <%= link_to "Review this movie!", new_movie_review_path(@movie) %>
     <% if current_user_admin? %>
         <section class="admin">
