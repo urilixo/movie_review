@@ -3,6 +3,8 @@ class User < ApplicationRecord
 
   has_many :reviews, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :favorited, through: :favorites, source: :movie
+  has_many :reviewed, through: :reviews, source: :movie
 
   validates :name, presence: true
   validates :username, presence: true, uniqueness: { case_sensitive: false }
