@@ -7,6 +7,7 @@ class Movie < ApplicationRecord
   has_many :genres, through: :categorizations
 
   RATINGS = %w[G PG PG-13 R NC-17]
+  FILTERS = ['Released movies', 'Upcoming movies', 'Hit movies', 'Flopped movies', 'Recently added']
   validates :title, :released_on, :duration, presence: true
   validates :description, length: { minimum: 25 }
   validates :total_gross, numericality: { greater_than_or_equal_to: 0 }
