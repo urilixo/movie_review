@@ -16,29 +16,11 @@ class Movie < ApplicationRecord
   }
   validates :rating, inclusion: { in: RATINGS }
 
-  def self.released
-    where('released_on < ?', Time.now)
-  end
-
-  def self.flop
-    where('total_gross <= ?', 225_000_000)
-  end
-
-  def self.hit
-    where('total_gross >= ?', 300_000_000)
-  end
-
-  def self.recently_added
-    order('created_at desc').limit(3)
-  end
-
-  def self.minimum_total_gross
-    order('total_gross asc').limit(1)
-  end
-
-  def self.maximum_total_gross
-    order('total_gross desc').limit(1)
-  end
+  scope :released, -> { where('released_on < ?', Time.now).order('released_on desc') }
+  scope :flop, -> { where('total_gross <= ?', 225_000_000) }
+  scope :hit, -> { where('total_gross >= ?', 300_000_000) }
+  scope :upcoming, -> { where('released_on > ?', Time.now).order('released_on asc') }
+  scope :recently_added, ->(max = 5) { released.limit(max) }
 
   def flop?
     total_gross.blank? || total_gross < 250_000_000
