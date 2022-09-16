@@ -3,20 +3,7 @@ class MoviesController < ApplicationController
   before_action :require_admin, except: %i[index show]
 
   def index
-    @movies = case params[:filter]
-              when 'Released movies'
-                Movie.released
-              when 'Upcoming movies'
-                Movie.upcoming
-              when 'Hit movies'
-                Movie.hit
-              when 'Flopped movies'
-                Movie.flop
-              when 'Recently added'
-                Movie.recently_added
-              else
-                Movie.all
-              end
+    @movies = Movie.send(movie_filter)
   end
 
   def new
@@ -58,6 +45,14 @@ class MoviesController < ApplicationController
   end
 
   private
+
+  def movie_filter
+    if params[:filter].in? Movie::FILTERS
+      params[:filter].split(' ')[0].downcase
+    else
+      :all
+    end
+  end
 
   def movie_params
     params.require(:movie)
