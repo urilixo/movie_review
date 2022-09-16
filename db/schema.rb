@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_16_051337) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_16_053245) do
   create_table "categorizations", force: :cascade do |t|
     t.integer "genre_id", null: false
     t.integer "movie_id", null: false
@@ -67,6 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_16_051337) do
     t.datetime "updated_at", null: false
     t.string "username"
     t.boolean "admin", default: false
+    t.string "slug"
   end
 
   add_foreign_key "categorizations", "genres"
