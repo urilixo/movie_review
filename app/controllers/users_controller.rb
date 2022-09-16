@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: %i[require_correct_user show]
   before_action :require_signin, except: %i[new create]
   before_action :require_correct_user, only: %i[edit update destroy]
 
@@ -10,9 +11,7 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def show
-    @user = User.find(params[:id])
-  end
+  def show; end
 
   def create
     @user = User.new(user_params)
@@ -41,6 +40,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def set_user
+    @user = User.find_by!(slug: params[:id])
+  end
 
   def require_correct_user
     @user = User.find(params[:id])
