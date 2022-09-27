@@ -14,4 +14,8 @@ module MoviesHelper
   def review_count(movie)
     movie.reviews_amount.zero? ? 'No ' : movie.reviews_amount
   end
+
+  def get_image(movie)
+    movie.cover_image.attached? ? movie.cover_image : 'placeholder'
+  end
 end

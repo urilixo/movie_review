@@ -1,5 +1,5 @@
 <section class="movie-details">
-    <div class="image"> <%= image_tag @movie.image_file_name %></div>
+    <div class="image"> <%= image_tag get_image(@movie) %></div>
     <div class="favorite">
         <%= favorite_or_unfavorite(@movie, @favorite) %>
         <div> 
