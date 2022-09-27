@@ -8,16 +8,14 @@ class Movie < ApplicationRecord
   has_many :categorizations, dependent: :destroy
   has_many :genres, through: :categorizations
 
+  has_one_attached :cover_image, dependent: :destroy
+
   RATINGS = %w[G PG PG-13 R NC-17]
   FILTERS = ['Released movies', 'Upcoming movies', 'Hit movies', 'Flopped movies', 'Recently added']
   validates :title, presence: true, uniqueness: true
   validates :released_on, :duration, presence: true
   validates :description, length: { minimum: 25 }
   validates :total_gross, numericality: { greater_than_or_equal_to: 0 }
-  validates :image_file_name, format: {
-    with: /\w+\.(jpg|png)\z/i,
-    message: 'must be a JPG or PNG image'
-  }
   validates :rating, inclusion: { in: RATINGS }
 
   scope :released, -> { where('released_on < ?', Time.now).order('released_on desc') }
