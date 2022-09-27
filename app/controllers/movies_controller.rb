@@ -22,7 +22,8 @@ class MoviesController < ApplicationController
 
   def show
     @genres = @movie.genres
-    @favorite = current_user.favorites.find_by(movie_id: params[:id])
+
+    @favorite = current_user.favorites.find_by(movie_id: params[:id]) if current_user
   end
 
   def edit; end
