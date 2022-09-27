@@ -8,7 +8,7 @@ class Movie < ApplicationRecord
   has_many :categorizations, dependent: :destroy
   has_many :genres, through: :categorizations
 
-  has_one_attached :cover_image, dependent: :destroy
+  has_one_attached :cover_image
 
   RATINGS = %w[G PG PG-13 R NC-17]
   FILTERS = ['Released movies', 'Upcoming movies', 'Hit movies', 'Flopped movies', 'Recently added']
@@ -17,6 +17,7 @@ class Movie < ApplicationRecord
   validates :description, length: { minimum: 25 }
   validates :total_gross, numericality: { greater_than_or_equal_to: 0 }
   validates :rating, inclusion: { in: RATINGS }
+  validate :acceptable_image
 
   scope :released, -> { where('released_on < ?', Time.now).order('released_on desc') }
   scope :flopped, -> { where('total_gross <= ?', 225_000_000) }
@@ -42,5 +43,14 @@ class Movie < ApplicationRecord
 
   def set_slug
     self.slug = title.parameterize
+  end
+
+  def acceptable_image
+    return unless cover_image.attached?
+
+    errors.add(:cover_image, 'is too big') unless cover_image.blob.byte_size <= 1.megabyte
+
+    acceptable_types = ['image/jpeg', 'image/png']
+    errors.add(:cover_image, 'must be a JPEG or PNG') unless acceptable_types.include?(cover_image.content_type)
   end
 end
